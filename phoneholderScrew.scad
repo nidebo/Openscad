@@ -1,30 +1,28 @@
-/*
-modeled after NGM Legend 2
+TOTAL_HEIGHT = 127;
 
-*/
-module phoneholderScrew(){
- phoneholder(127);//127
-translate([0,0,2]){
- difference(){
- roundedBox([50,60,4],2,false);
-translate([20,23,0]){
-	cylinder(h = 5,r1=2,r2=2, center=true);
-}
-translate([-20,23,0]){
-	cylinder(h = 5,r1=2,r2=2, center=true);
-}
-translate([20,-23,0]){
-	cylinder(h = 5,r1=2,r2=2, center=true);
-}
-translate([-20,-23,0]){
-	cylinder(h = 5,r1=2,r2=2, center=true);
+module phoneHolderScrew(){
+    translate([0,0,2]){
+        difference(){
+            roundedBox([50,60,4],2,false);
+            screw([20,23,0]);
+            screw([-20,23,0]);
+            screw([20,-23,0]);
+            screw([-20,-23,0]);
+        }
+    }
 }
 
-}
-}
+module screw(translateDimensions) {
+    translate(translateDimensions)
+        cylinder(h = 5, r1 = 2, r2 = 2, center = true);
 }
 
-module phoneholder(phoneHeight){
+module phoneHolderWithScrew() {
+    phoneHolder(TOTAL_HEIGHT);
+    phoneHolderScrew();
+}
+
+module phoneHolder(phoneHeight){
 	difference(){
 		union(){
 		
@@ -101,4 +99,4 @@ module roundedBox(size, radius, sidesonly)
 		}
 	}
 }
-phoneholderScrew();
+phoneHolderWithScrew();
